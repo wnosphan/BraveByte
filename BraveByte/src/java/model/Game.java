@@ -117,6 +117,16 @@ public class Game {
         this.rating = rating;
     }
 
+    public Game(int id, String title, String kind, String background, double price) {
+        this.id = id;
+        this.title = title;
+        this.kind = kind;
+        this.background = background;
+        this.price = price;
+    }
+ 
+    
+        
     @Override
     public String toString() {
         return "Game{" + "id=" + id + ", title=" + title + ", description=" + description + ", author=" + author + ", kind=" + kind + ", poster=" + poster + ", background=" + background + ", price=" + price + ", created_at=" + created_at + ", rating=" + rating + '}';

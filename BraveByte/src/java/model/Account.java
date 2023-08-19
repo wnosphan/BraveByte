@@ -14,20 +14,31 @@ public class Account {
     private String username;
     private String email;
     private String password;
+    private String fullname;
     private String phone;
     private boolean role;
-
+    
     public Account() {
     }
 
-    public Account(int id, String username, String email, String password, String phone, boolean role) {
+    public Account(int id, String username, String email, String password, String fullname, String phone, boolean role) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
+        this.fullname = fullname;
         this.phone = phone;
         this.role = role;
     }
+
+    public String getFullname() {
+        return fullname;
+    }
+
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
+    }
+
 
     public int getId() {
         return id;
@@ -79,7 +90,8 @@ public class Account {
 
     @Override
     public String toString() {
-        return "Game{" + "id=" + id + ", username=" + username + ", email=" + email + ", password=" + password + ", phone=" + phone + ", role=" + role + '}';
+        return "Account{" + "id=" + id + ", username=" + username + ", email=" + email + ", password=" + password + ", fullname=" + fullname + ", phone=" + phone + ", role=" + role + '}';
     }
-    
+
+
 }
