@@ -28,7 +28,7 @@
                 <a href="games.jsp" class="selection">GAMES</a>
                 <a href="" class="selection">CART</a>
                 <a href="" class="selection">TRANSACTION</a>
-                <a href="" class="selection">LIBRARY</a>
+                <a href="Library.jsp" class="selection">LIBRARY</a>
 
             </div>
             <div class="head-page_user"></div>

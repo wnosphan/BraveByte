@@ -42,6 +42,7 @@ public class LoginServlet extends HttpServlet {
                 response.sendRedirect("index.jsp?status=Failed to Login!!");
             } else if (rs.isRole() == true) {
                 HttpSession session = request.getSession();
+                session.setAttribute("userId", rs.getId()); 
                 session.setAttribute("acc", rs);
                 response.sendRedirect("adminpage");
             } else {
