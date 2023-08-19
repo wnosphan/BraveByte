@@ -1,24 +1,26 @@
+<%-- 
+    Document   : kinds
+    Created on : 18-Aug-2023, 17:14:10
+    Author     : user
+--%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.Game"%>
 <%@page import="model.Pagging"%>
 <%@page import="dao.PaggingDAO"%>
-<%@page import="model.Game"%>
-<%@page import="java.util.ArrayList"%>
 <%@page import="dao.GameDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>BraveByte</title>
     </head>
-
     <body>
         <%
             GameDAO gdao = new GameDAO();
-            ArrayList<Game> list = gdao.getTop3Games();
-
+            PaggingDAO pdao = new PaggingDAO();
+            ArrayList<Game> kinds = (ArrayList<Game>) request.getAttribute("kinds");
         %>
         <div class="page">
             <%@include file="header.jsp" %>
@@ -54,9 +56,10 @@
                     </div>
                 </div>
                 <div class="game-showing">
-                    <h1>Top game </h1>
+                    <h1>List games</h1>
                     <div class="top-game">
-                        <%                            for (Game game : list) {
+                        <%                            for (Game game : kinds) {
+
                         %>
                         <div class="game RDR2" style="background-image: url('<%= game.getPoster()%>');">
                             <div class="black-bgr"></div>
@@ -78,7 +81,7 @@
                             }
                         %>
 
-                    </div> 
+                    </div>  
                     <form action="main" method="post" class="formlogin">
                         <button name="action" value="watch" class = "see-more-game"> See more </button>
                     </form>
@@ -87,12 +90,8 @@
             <%@include file="footer.jsp" %>
         </div>
 
-
-
         <script src="Script/HomeScript.js"></script>
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
     </body>
-
 </html>
