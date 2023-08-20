@@ -26,7 +26,7 @@ public class LibraryServlet extends HttpServlet {
             throws ServletException, IOException {
               HttpSession session = request.getSession();
           LibraryDAO i= new LibraryDAO();
-          List<Game> list=i.getAllGamesForUser(request);
+          List<Game> list=i.getAll(1);
           session.setAttribute("library",list);
           int a = list.size();
           request.setAttribute("count", a);

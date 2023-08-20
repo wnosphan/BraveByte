@@ -41,12 +41,11 @@ public class LoginServlet extends HttpServlet {
             if (rs.getUsername() == null) {
                 response.sendRedirect("index.jsp?status=Failed to Login!!");
             } else if (rs.isRole() == true) {
-                HttpSession session = request.getSession();               
+                HttpSession session = request.getSession();
                 session.setAttribute("acc", rs);
                 response.sendRedirect("adminpage");
             } else {
                 HttpSession session = request.getSession();
-                session.setAttribute("userId", rs.getId()); 
                 session.setAttribute("acc", rs);
                 response.sendRedirect("home.jsp");
 

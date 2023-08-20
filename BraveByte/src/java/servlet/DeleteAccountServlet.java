@@ -4,7 +4,7 @@
  */
 package servlet;
 
-import dao.CartDAO;
+import dao.AccountDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -12,14 +12,13 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ADMIN
+ * @author acer
  */
-@WebServlet(name = "AddGametoCartServlet", urlPatterns = {"/addgametocart"})
-public class AddGametoCartServlet extends HttpServlet {
+@WebServlet(name = "DeleteAccountServlet", urlPatterns = {"/DeleteAccountServlet"})
+public class DeleteAccountServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -30,7 +29,17 @@ public class AddGametoCartServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try ( PrintWriter out = response.getWriter()) {
+            
+            int id = Integer.parseInt(request.getParameter("id"));
+            System.out.println("xóa"+id);
+            AccountDAO accountDAO = new AccountDAO();
+            accountDAO.deleteAccount(id);
+        }
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -44,8 +53,7 @@ public class AddGametoCartServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       
-       
+        processRequest(request, response);
     }
 
     /**
@@ -59,12 +67,7 @@ public class AddGametoCartServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        CartDAO cartDAO = new CartDAO();
-        HttpSession session = request.getSession();
-       String idGameStr = request.getParameter("idGame");
-       int idGame = Integer.parseInt(idGameStr);
-        cartDAO.addGameToCart(request, idGame);
-        response.sendRedirect(request.getHeader("referer"));
+        processRequest(request, response);
     }
 
     /**

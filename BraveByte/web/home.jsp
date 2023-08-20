@@ -12,7 +12,6 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>BraveByte</title>
-      
     </head>
 
     <body>
@@ -71,9 +70,7 @@
                             </div>
                             <div class="game-button">
                                 <button class="game-info"> <ion-icon name="alert-outline"></ion-icon> </button>
-                                <form method="post" action="addgametocart">
-                                 <input type="hidden" name="idGame" value="<%= game.getId()%>" />
-                                <button class="add-to-cart"> <ion-icon name="cart-outline"></ion-icon></button></form>
+                                <button class="add-to-cart"> <ion-icon name="cart-outline"></ion-icon></button>
                             </div>
 
                         </div>
@@ -89,6 +86,8 @@
             </div>
             <%@include file="footer.jsp" %>
         </div>
+
+
 
         <script src="Script/HomeScript.js"></script>
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

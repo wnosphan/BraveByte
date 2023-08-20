@@ -1,3 +1,4 @@
+
 package dao;
 
 import java.sql.PreparedStatement;
@@ -5,20 +6,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.http.HttpServletRequest;
 import model.Game;
 import service.DBContext;
 
+
 public class LibraryDAO extends DBContext {
-    public List<Game> getAllGamesForUser(HttpServletRequest request) {
+    public List<Game> getAll(int userId) {
         List<Game> games = new ArrayList<>();
-        int userId = (int) request.getSession().getAttribute("userId"); // Lấy ID của người dùng từ session
-
-        String sql = "SELECT g.ID, g.Title, g.Kind, g.Background, g.Price\n" +
-                 "FROM dbo.Game g\n" +
-                 "INNER JOIN dbo.Library l ON g.ID = l.GID\n" +
-                 "WHERE l.AccID = ?";
-
+        String sql = "SELECT g.[ID], g.[Title], g.[Kind], g.[Background], g.[Price]\n" +
+                     "FROM [BraveBYte].[dbo].[Game] g\n" +
+                     "INNER JOIN [BraveByte].[dbo].[Library] l ON g.[ID] = l.[GID]\n" +
+                     "WHERE l.[AccID] = ?";
         try (
             PreparedStatement st = connection.prepareStatement(sql)
         ) {
@@ -40,22 +38,22 @@ public class LibraryDAO extends DBContext {
         }
         return games;
     }
-        public void addGameToLibrary(HttpServletRequest request, int gameId) {
-        int userId = (int) request.getSession().getAttribute("userId");
-
-        String sql = "INSERT INTO dbo.Library (AccID, GID) VALUES (?, ?)";
-
-        try (
-            PreparedStatement st = connection.prepareStatement(sql)
-        ) {
-            st.setInt(1, userId);
-            st.setInt(2, gameId);
-
-            st.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately
+    public static void main(String[] args) {
+        LibraryDAO libraryDAO = new LibraryDAO();
+        int userId = 1; // Replace with the actual user ID
+        
+        List<Game> games = libraryDAO.getAll(userId);
+        if (!games.isEmpty()) {
+            System.out.println("List of games:");
+            for (Game game : games) {
+                System.out.println(game);
+            }
+        } else {
+            System.out.println("No games found for the user.");
         }
     }
-   
 }
+
+
+
+

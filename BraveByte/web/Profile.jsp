@@ -26,8 +26,19 @@
 
     <body>
         <div class="page">
-       <%@include file="header.jsp" %>
+            <div class="head-page">
+                <img src="/Img/white.jpg" alt="">
+                <div class="head-page_logo">BRAVE<ion-icon id='logo' name="shield-outline"></ion-icon>BYTE</div>
+                <div class="head-page_select">
+                    <a href="home.jsp" class="selection">HOME</a>
+                    <a href="" class="selection">GAMES</a>
+                    <a href="" class="selection">CART</a>
+                    <a href="" class="selection">TRANSACTION</a>
+                    <a href="" class="selection">LIBRARY</a>
 
+                </div>
+                <div class="head-page_user"></div>
+            </div>
             <div class="body-page">
                 <div class="main-info">
                     <div class="avatar-cover">

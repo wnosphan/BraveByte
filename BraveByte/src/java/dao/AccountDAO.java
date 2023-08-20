@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Account;
 import service.DBContext;
 
@@ -49,6 +51,20 @@ public class AccountDAO extends DBContext {
         }
         return accounts;
     }
+
+    public void deleteAccount(int id) {
+    //DELETE FROM users WHERE id = 1;
+    String sql = "DELETE FROM dbo.Account WHERE ID = ?";
+        System.out.println("xóa ");
+    try {
+        PreparedStatement pst = connection.prepareStatement(sql);
+        pst.setInt(1, id);
+        pst.executeUpdate();
+    } catch (SQLException ex) {
+        Logger.getLogger(AccountDAO.class.getName()).log(Level.SEVERE, null, ex);
+    }
+}
+
 
     public Account getAccount(int id) {
         Account acc = new Account();
@@ -104,8 +120,8 @@ public class AccountDAO extends DBContext {
         }
         return acc;
     }
-    
-    public Account getAccountwhileforgot(String email,String phone){
+
+    public Account getAccountwhileforgot(String email, String phone) {
         Account acc = new Account();
         String sql = "SELECT * FROM dbo.Account WHERE Email = ? and Phone = ?";
         boolean role = false;
@@ -132,9 +148,9 @@ public class AccountDAO extends DBContext {
         }
         return acc;
     }
-    
-    public boolean isRegister(String username, String email, String phone){
-         Account acc = new Account();
+
+    public boolean isRegister(String username, String email, String phone) {
+        Account acc = new Account();
         String sql = "SELECT * FROM dbo.Account WHERE Username = ? OR Email = ? OR Phone = ?";
         try {
             PreparedStatement pst = connection.prepareStatement(sql);
@@ -142,7 +158,7 @@ public class AccountDAO extends DBContext {
             pst.setString(2, email);
             pst.setString(3, phone);
             ResultSet rs = pst.executeQuery();
-             while (rs.next()) {
+            while (rs.next()) {
                 acc.setId(rs.getInt(1));
                 acc.setUsername(rs.getString(2));
                 acc.setEmail(rs.getString(3));
@@ -151,42 +167,43 @@ public class AccountDAO extends DBContext {
                 acc.setPhone(rs.getString(6));
                 acc.setRole(false);
             }
-             if (acc.getEmail()==null) {
+            if (acc.getEmail() == null) {
                 return true;
             }
         } catch (SQLException ex) {
         }
         return false;
     }
-    
-    public void Updateprofile(int id,String fullname, String email, String phone){
+
+    public void Updateprofile(int id, String fullname, String email, String phone) {
 //        AccountDAO accountDAO = new AccountDAO();
 //            Account acc = new Account();
-            String sql= "UPDATE dbo.Account SET Fullname = ?,Email = ?, Phone = ? WHERE ID = ?";
-            try{
-                PreparedStatement pst = connection.prepareStatement(sql);
-                pst.setString(1, fullname);
-                pst.setString(2, email);
-                pst.setString(3, phone);
-                pst.setInt(4, id);
-                ResultSet rs = pst.executeQuery();
-            }catch(SQLException ex){
-                
-            }
+        String sql = "UPDATE dbo.Account SET Fullname = ?,Email = ?, Phone = ? WHERE ID = ?";
+        try {
+            PreparedStatement pst = connection.prepareStatement(sql);
+            pst.setString(1, fullname);
+            pst.setString(2, email);
+            pst.setString(3, phone);
+            pst.setInt(4, id);
+            ResultSet rs = pst.executeQuery();
+        } catch (SQLException ex) {
+
+        }
     }
-    public void updatePassword(int id, String newpw){
-     
+
+    public void updatePassword(int id, String newpw) {
+
         String sql = "UPDATE dbo.Account SET Password = ? WHERE id = ?";
         try {
             PreparedStatement pst = connection.prepareStatement(sql);
             pst.setString(1, newpw);
             pst.setInt(2, id);
-             ResultSet rs = pst.executeQuery();
+            ResultSet rs = pst.executeQuery();
         } catch (Exception e) {
         }
     }
 
-    public void setAccount(String username, String email, String password, String fullname, String phone)  {
+    public void setAccount(String username, String email, String password, String fullname, String phone) {
         try {
 
             PreparedStatement pst = connection.prepareStatement("INSERT INTO dbo.Account (Username,Email,Password,Fullname,Phone,Role) values(?,?,?,?,?,?)");
@@ -196,7 +213,7 @@ public class AccountDAO extends DBContext {
             pst.setString(4, fullname);
             pst.setString(5, phone);
             pst.setInt(6, 0);
-            
+
             pst.executeUpdate();
 
         } catch (SQLException ex) {
@@ -206,10 +223,7 @@ public class AccountDAO extends DBContext {
 
     public static void main(String[] args) {
         AccountDAO accountDAO = new AccountDAO();
-        boolean s = accountDAO.isRegister("thuong", "user14@gmail.com", "0986543255");
-        accountDAO.setAccount("thuong555", "user555@gmail.com", "thuong1", null, "0986543210");
-        Account a = accountDAO.getAccount("thuong555", "thuong1");
-        System.out.println(a);
-        accountDAO.Updateprofile(1, "FE015", "user1@gmail.com", "0152635845");
+        ArrayList<Account> accounts = new ArrayList<>();
+        System.out.println(accountDAO.getAccountList());
     }
 }
