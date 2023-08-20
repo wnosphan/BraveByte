@@ -75,7 +75,14 @@ public class AddGameServlet extends HttpServlet {
         String price = request.getParameter("price");
         String rating = request.getParameter("rating");
         
-        System.out.println(description);
+        System.out.println(description+"des");
+        
+        poster = convertToRelativePath(poster);
+        System.out.println(background);
+        background = convertToRelativePath(background);
+        
+        System.out.println(background);
+        
         
         AdminDao admin = new AdminDao();
         admin.AddGame(title,description,author,category,poster,background,price,rating);
@@ -90,5 +97,11 @@ public class AddGameServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
-
+    
+    
+    public static String convertToRelativePath(String fullPath) {
+        String relativePath = fullPath.replace("C:\\fakepath\\", "img/");
+        
+        return relativePath;
+    }
 }

@@ -100,12 +100,12 @@
 
                         <div class="input-field poster">
                             <h3 > Game's poster</h3>
-                            <input type="text" id="poster">
+                            <input type="file" id="poster">
                         </div>
 
                         <div class="input-field background">
                             <h3 > Game's background</h3>
-                            <input type="text" id="backgr">
+                            <input type="file" id="backgr">
                         </div>
 
                         <div class="input-field price">
@@ -134,7 +134,8 @@
                             var backgr = encodeURIComponent(document.getElementById("backgr").value);
                             var price = encodeURIComponent(document.getElementById("price").value);
                             var rating = encodeURIComponent(document.getElementById("rating").value);
-
+                            
+                            console.log(poster);
                             var data = "title=" + title + "&des=" + author + "&author=" + author + "&category=" + category + "&poster=" + poster + "&background=" + backgr + "&price=" + price + "&rating=" + rating; // Thêm các trường input khác
 
                             xhr.send(data);
@@ -200,7 +201,7 @@
             <%@include file="footer.jsp" %>
         </div>
 
-        <script src="/Script/AdminScript.js"></script>
+        <script src="Script/AdminScript.js"></script>
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 

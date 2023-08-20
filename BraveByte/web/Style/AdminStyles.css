@@ -307,7 +307,7 @@ body {
     padding: 10px;
     border-radius: 8px;
     width: 100%;
-    height: 720px;
+    height: 600px;
     background-color: white;
     display: flex;
     flex-direction: column;
@@ -399,9 +399,7 @@ body {
     justify-content: center;
     align-items: center;
 }
-.add-game{
-    display: none;
-}
+
 .admin {
     background-color: #ffc6d2;
 }
@@ -456,4 +454,10 @@ body {
 .foot-page span {
     font-size: 0.8rem;
     color: rgba(255, 255, 255, 0.567);
+}
+.add-game{
+    display: none;
+}
+.show-list-user{
+    display: none;
 }
