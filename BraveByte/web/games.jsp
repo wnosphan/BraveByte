@@ -30,7 +30,7 @@
         <%
             GameDAO gdao = new GameDAO();
             PaggingDAO pdao = new PaggingDAO();
-            Pagging pagging = pdao.getListNews(1, 4);
+            Pagging pagging = pdao.getListGames(1, 4);
             int count = gdao.getGameList().size();
 
             int numberPage = (int) Math.ceil((count * 1.0) / pagging.getPerPage());

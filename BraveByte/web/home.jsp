@@ -41,15 +41,15 @@
                     <div class="catagories">
                         <div class="catagory ">
                             <div class="cata-img_action"></div>
-                            <a href="show-by-kind?kind=Action">Action</a>
+                            <a href="main?txtSearch=&minimum=&maximum=&kind=1&action=search">Action</a>
                         </div>
                         <div class="catagory ">
                             <div class="cata-img_adventure"></div>
-                            <a href="show-by-kind?kind=Adventure">Adventure</a>
+                            <a href="main?txtSearch=&minimum=&maximum=&kind=2&action=search">Action</a>
                         </div>
                         <div class="catagory">
                             <div class="cata-img_shooter"></div>
-                            <a href="show-by-kind?kind=Shooter">Shooter</a>
+                            <a href="main?txtSearch=&minimum=&maximum=&kind=3&action=search">Action</a>
                         </div>
 
                     </div>

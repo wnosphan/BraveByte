@@ -22,17 +22,35 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Dongle&family=Montserrat&family=Raleway:wght@600;700&display=swap"
             rel="stylesheet">
-<!--        <link rel="stylesheet" href="Style/bootstrap.css" type="text/css"/>
-        <link rel="stylesheet" href="Style/bootstrap.min.css" type="text/css"/>-->
+        <link rel="stylesheet" href="Style/bootstrap.css" type="text/css"/>
+        <link rel="stylesheet" href="Style/bootstrap.min.css" type="text/css"/>
         <link rel="stylesheet" href="Style/GamesStyle.css">
     </head>
     <body>
         <%
             GameDAO gdao = new GameDAO();
-            ArrayList<Game> searchs = (ArrayList<Game>) request.getAttribute("searchs");
+            String keyword = (String) request.getAttribute("keyword");
+            String maximum = (String) request.getAttribute("maximum");
+            String minimum = (String) request.getAttribute("minimum");
+            String sort = (String) request.getAttribute("sort");
+            String kind = (String) request.getAttribute("kind");
+//            ArrayList<Game> searchs = (ArrayList<Game>) request.getAttribute("searchs");
+//
+//            if (searchs == null) {
+//                searchs = gdao.getGameList();
+//            }
+            PaggingDAO pdao = new PaggingDAO();
+            Pagging pagging = pdao.getListSearch(keyword, minimum, maximum, kind, sort, 1, 4);
+            int count = gdao.searchGames(keyword, minimum, maximum, kind, sort).size();
 
-            if (searchs == null) {
-                searchs = gdao.getGameList();
+            int numberPage = (int) Math.ceil((count * 1.0) / pagging.getPerPage());
+            int currentPage = 1;
+            ArrayList<Game> list = pagging.getItems();
+            System.out.println(request.getAttribute("pagging"));
+            if (request.getAttribute("pagging") != null) {
+                pagging = (Pagging) request.getAttribute("pagging");
+                list = pagging.getItems();
+                currentPage = pagging.getPage();
             }
         %>
         <div class="page">
@@ -91,7 +109,8 @@
                     <h1 style="color: red;">Games</h1>
                     <div class="games">
                         <%
-                            for (Game game : searchs) {
+                            
+                            for (Game game : list) {
                         %>
                         <div class="game RDR2" style="background-image: url('<%= game.getPoster()%>');">
                             <div class="black-bgr"></div>
@@ -114,14 +133,57 @@
                         %>
                     </div>
                 </div>
+                <% 
+                    //main?txtSearch=&minimum=&maximum=&kind=2&action=search
+                    String url = "main?";
+                    if (keyword == null) {
+                        url += "txtSearch=";
+                    } else {
+                        url += ("txtSearch=" + keyword);
+                    }
+                    if (minimum == null) {
+                        url += "&minimum=";
+                    } else {
+                        url += ("&minimum=" + minimum);
+                    }
+                    if (maximum == null) {
+                        url += "&maximum=";
+                    } else {
+                        url += ("&maximum=" + maximum);
+                    }
+                    if (kind != null) {
+                        url += ("&kind=" + kind);
+                    }
+                    if (sort != null) {
+                        url += ("&sort=" + sort);
+                    }
+                    url += "&action=search";
+                %>
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination justify-content-end">
+                        <li class="page-item ">
+                            <a class="page-link <%= currentPage == 1 ? "disabled" : null%>" href="<%= url%>&currentPage=<%= currentPage - 1%>">Previous</a>
+                        </li>
 
+                        <%
+                            for (int i = 1; i <= numberPage; i++) {%>
+                        <li class="page-item">
+                            <a class="page-link <%= currentPage == i ? "active" : null%> " href="<%= url%>&currentPage=<%= i%>"><%= i%></a>
+                        </li>
+                        <% }%>
+
+                        <li class="page-item">
+                            <a class="page-link <%= currentPage == numberPage ? "disabled" : null%>"  href="<%= url%>&currentPage=<%= currentPage + 1%>">Next</a>
+                        </li>
+                    </ul>
+                </nav>     
             </div>
             <%@include file="footer.jsp" %>
         </div>
         <script src="Script/HomeScript.js"></script>
-<!--        <script src="Script/bootstrap.js"></script>
+        <script src="Script/bootstrap.js"></script>
         <script src="Script/bootstrap.bundle.js"></script>
-        <script src="Script/bootstrap.min.js"></script>-->
+        <script src="Script/bootstrap.min.js"></script>
         <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 
