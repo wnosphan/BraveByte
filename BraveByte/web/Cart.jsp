@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,19 +14,8 @@
 </head>
 
 <body>
-    <div class="page">
-        <div class="head-page">
-            <img src="/Img/white.jpg" alt="">
-            <div class="head-page_logo">BRAVE<ion-icon id='logo' name="shield-outline"></ion-icon>BYTE</div>
-            <div class="head-page_select">
-                <a href="" class="selection">HOME</a>
-                <a href="" class="selection">GAMES</a>
-                <a href="" class="selection">CART</a>
-                <a href="" class="selection">TRANSACTION</a>
-                <a href="" class="selection">LIBRARY</a>
-            </div>
-            <div class="head-page_user"></div>
-        </div>
+    <div class="page">                  
+
         <div class="body-page">
             <h1 > Cart </h1>
             <div class="cart-field">
@@ -36,36 +26,29 @@
                     <div class="section ">Price</div>
                     <div class="section buttons"> </div>
                 </div>
-
-                <div class="game gow" style="background-image: url('img/god-of-war-ragnarök-3840x2160-8677.jpg');">
+                   <c:forEach items="${cart}" var="x">
+                <div class="game gow" style="background-image: url('${x.background}');">
                     <div class="background"></div>
                     <div class="section blank"></div>
-                    <div class="section name">God Of War | Ranarok </div>
-                    <div class="section category"><p>Adventure</p> <p>Action</p> </div>
-                    <div class="section price">60$</div>
-                    <div class="section buttons"> <button class="more-info"> <ion-icon name="alert-circle-outline"></ion-icon> </button><button class = delete> <ion-icon name="close-circle-outline"></ion-icon> </button> </div>
+                    <div class="section name">${x.title}</div>
+                    <div class="section category"><p>${x.kind}</p> </div>
+                    <div class="section price">${x.price}</div>
+                    <div class="section buttons"> <button class="more-info"> <ion-icon name="alert-circle-outline"></ion-icon> </button>
+                        <form method="post" action="deletefromcart">
+                      
+                         <input type="hidden" name="idGame" value="${x.id}" />
+                        <button class = delete > <ion-icon name="close-circle-outline"></ion-icon> </button></form> </div>
                 </div>
 
-                <div class="game gow" style="background-image: url('img/hitman.jpg');">
-                    <div class="background"></div>
-                    <div class="section blank"></div>
-                    <div class="section name"> HITMAN 3 </div>
-                    <div class="section category"> <p>Action</p> </div>
-                    <div class="section price">60$</div>
-                    <div class="section buttons"> <button class="more-info"> <ion-icon name="alert-circle-outline"></ion-icon> </button><button class = delete> <ion-icon name="close-circle-outline"></ion-icon> </button> </div>
-                </div>
+                    </c:forEach>
+ 
 
             </div>
             <div class="sumarize">
                 <div class="total-amount">
                     <h3> Total Amount</h3>
-                    <p>2</p>
-                </div>
-
-                <div class="total-price">
-                    <h3>Total Price :</h3>
-                    <p>120$</p>
-                </div>
+                    <p><%= request.getAttribute("count")%></p>
+                </div>              
                 <div class="payment">
                     <h3>Payment</h3>
                     <div class="payment-methods">
@@ -84,11 +67,15 @@
                         </label>
                     </div>
                 </div>
-
-                <button class="purchase"> <ion-icon name="download-outline"></ion-icon> </button>
+                <form method="post" action="addgamelibrary">
+                   <c:forEach items="${cart}" var="x">
+        <input type="hidden" name="idGames" value="${x.id}" />
+                   </c:forEach>
+                <button class="purchase"> <ion-icon name="download-outline"></ion-icon> </button></form>
 
             </div>
         </div>
+                   <%@include file="footer.jsp" %>
     </div>
     <script src="Script/CartScript.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

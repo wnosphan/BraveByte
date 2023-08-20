@@ -72,15 +72,6 @@
         <servlet-name>UpdateProfileServlet</servlet-name>
         <url-pattern>/UpdateProfileServlet</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>AddGameServlet</servlet-name>
-        <servlet-class>servlet.AddGameServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AddGameServlet</servlet-name>
-        <url-pattern>/AddGameServlet</url-pattern>
-    </servlet-mapping>
-
     <session-config>
         <session-timeout>
             30

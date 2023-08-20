@@ -26,10 +26,11 @@
             <div class="head-page_select">
                 <a href="home.jsp" class="selection">HOME</a>
                 <a href="games.jsp" class="selection">GAMES</a>
-                <a href="" class="selection">CART</a>
+                <a href="cart" class="selection">CART</a>
                 <a href="" class="selection">TRANSACTION</a>
-                <a href="" class="selection">LIBRARY</a>
-
+                <a href="library" class="selection">LIBRARY</a>
+                 <a href="Profile.jsp" class="selection">PROFILE</a>
+                  <a href="LogoutServlet" class="selection">Logout</a>
             </div>
             <div class="head-page_user"></div>
         </div>

@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Library</title>
     <link rel="stylesheet" href="Style/LibraryStyle.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,20 +15,10 @@
 
 <body>
     <div class="page">
-        <div class="head-page">
-            <img src="/Img/white.jpg" alt="">
-            <div class="head-page_logo">BRAVE<ion-icon id='logo' name="shield-outline"></ion-icon>BYTE</div>
-            <div class="head-page_select">
-                <a href="" class="selection">HOME</a>
-                <a href="" class="selection">GAMES</a>
-                <a href="" class="selection">CART</a>
-                <a href="" class="selection">TRANSACTION</a>
-                <a href="" class="selection">LIBRARY</a>
-            </div>
-            <div class="head-page_user"></div>
-        </div>
+    <%@include file="header.jsp" %>
         <div class="body-page">
             <h1 > LIBRARY </h1>
+            <h2 class="number-games">Total :<%= request.getAttribute("count")%> Game</h2>
             <div class="cart-field">
                 <div class="titles">
                     <div class="section blank"></div>
@@ -50,7 +40,7 @@
                       </c:forEach>
             </div>
         </div>
-        
+         <%@include file="footer.jsp" %>
     </div>
     <script src="Script/LibraryScript.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>

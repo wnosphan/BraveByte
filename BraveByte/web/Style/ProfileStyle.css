@@ -36,7 +36,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url(/Img/107064014_p2.png);
+    background-image: url(../img/107064014_p2.png);
     filter: blur(50px) brightness(0.7);
     opacity: 0.7;
     z-index: -1; 
@@ -135,7 +135,7 @@ body {
     border-radius: 50%;
 }
 .avatar{
-    background-image: url(/Img/Capthanhdat_mid_age_cyber_king_short_beard_with_body_and_head_r_4874d454-5513-4218-8c6a-76033e56cfa1.png);
+    background-image: url(../img/Capthanhdat_mid_age_cyber_king_short_beard_with_body_and_head_r_4874d454-5513-4218-8c6a-76033e56cfa1.png);
     background-position: center;
     background-size: cover;
     width: 200px;

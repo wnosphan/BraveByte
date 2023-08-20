@@ -4,21 +4,22 @@
  */
 package servlet;
 
+import dao.CartDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Account;
-import dao.AccountDAO;
 
 /**
  *
- * @author LENOVO
+ * @author ADMIN
  */
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "DeletefromCartServlet", urlPatterns = {"/deletefromcart"})
+public class DeletefromCartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,30 +30,7 @@ public class LoginServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String username = request.getParameter("ussignin");
-            String password = request.getParameter("pwsignin");
-            AccountDAO accountDAO = new AccountDAO();
-            Account rs = accountDAO.getAccount(username, password);
-            if (rs.getUsername() == null) {
-                response.sendRedirect("index.jsp?status=Failed to Login!!");
-            } else if (rs.isRole() == true) {
-                HttpSession session = request.getSession();               
-                session.setAttribute("acc", rs);
-                response.sendRedirect("adminpage");
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("userId", rs.getId()); 
-                session.setAttribute("acc", rs);
-                response.sendRedirect("home.jsp");
-
-            }
-        }
-    }
+   
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -66,8 +44,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-
+       
     }
 
     /**
@@ -81,17 +58,27 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-    }
+      HttpSession session = request.getSession();
+       
+       String idGameStr = request.getParameter("idGame");
+       int idGame = Integer.parseInt(idGameStr);
+          CartDAO cartDAO = new CartDAO();
+        cartDAO.removeGameFromCart(request, idGame);
+         response.sendRedirect(request.getHeader("referer"));
+}
+}
+
+
+        // Call your DAO to remove the game from the user's cart
+       
+    
+    
 
     /**
      * Returns a short description of the servlet.
      *
      * @return a String containing servlet description
      */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
+   
+   
 
-}

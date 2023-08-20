@@ -105,4 +105,3 @@ public class AddGameServlet extends HttpServlet {
         return relativePath;
     }
 }
-
