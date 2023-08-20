@@ -54,7 +54,7 @@ public class LibraryDAO extends DBContext {
             st.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-            // Handle the exception appropriately
+            
         }
     }
    

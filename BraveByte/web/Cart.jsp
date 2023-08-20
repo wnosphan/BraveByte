@@ -66,11 +66,11 @@
                             <p class=check-mark> <ion-icon name="logo-paypal"></ion-icon> </p>
                         </label>
                     </div>
-                </div>
+                </div> 
                 <form method="post" action="addgamelibrary">
-                   <c:forEach items="${cart}" var="x">
-        <input type="hidden" name="idGames" value="${x.id}" />
-                   </c:forEach>
+                  <c:forEach items="${cart}" var="x">
+                   <input type="hidden" name="idGame" value="${x.id}" />
+                  </c:forEach>
                 <button class="purchase"> <ion-icon name="download-outline"></ion-icon> </button></form>
 
             </div>

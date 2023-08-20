@@ -73,4 +73,19 @@ public class CartDAO extends DBContext {
             // Handle the exception appropriately
         }
     }
+    public void removeAllGamesFromCartForUser(HttpServletRequest request) {
+        int userId = (int) request.getSession().getAttribute("userId");
+
+        String sql = "DELETE FROM dbo.Cart WHERE AccID = ?";
+
+        try (
+            PreparedStatement st = connection.prepareStatement(sql)
+        ) {
+            st.setInt(1, userId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+        }
+    }
 }

@@ -71,15 +71,15 @@ public class AddGametoLibrary extends HttpServlet {
               List<Game> cartGames = cartDAO.getAllGamesForUser(request);
               if (cartGames!=null) {
              for (Game game : cartGames) {
-                  cartDAO.removeGameFromCart(request, game.getId());
+                  cartDAO.removeAllGamesFromCartForUser(request);
 }             
-              response.sendRedirect("cart");
+               request.getRequestDispatcher("cart").forward(request, response);
         } else {
-              response.sendRedirect("cart");   
+             request.getRequestDispatcher("cart").forward(request, response);  
         }
         }
         
-       response.sendRedirect("cart");
+       request.getRequestDispatcher("cart").forward(request, response);
              
     }
 
