@@ -271,7 +271,7 @@ body {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.304);
-    background-image: url(/img/people.jpg) ;
+    background-image: url(img/people.jpg) ;
     filter: blur(1px); 
     z-index: 0;
     background-size: cover;
