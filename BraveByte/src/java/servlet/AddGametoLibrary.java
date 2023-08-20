@@ -4,21 +4,24 @@
  */
 package servlet;
 
+import dao.CartDAO;
+import dao.LibraryDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.Account;
-import dao.AccountDAO;
+import model.Game;
 
 /**
  *
- * @author LENOVO
+ * @author ADMIN
  */
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "AddGametoLibrary", urlPatterns = {"/addgamelibrary"})
+public class AddGametoLibrary extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,30 +32,7 @@ public class LoginServlet extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            String username = request.getParameter("ussignin");
-            String password = request.getParameter("pwsignin");
-            AccountDAO accountDAO = new AccountDAO();
-            Account rs = accountDAO.getAccount(username, password);
-            if (rs.getUsername() == null) {
-                response.sendRedirect("index.jsp?status=Failed to Login!!");
-            } else if (rs.isRole() == true) {
-                HttpSession session = request.getSession();               
-                session.setAttribute("acc", rs);
-                response.sendRedirect("adminpage");
-            } else {
-                HttpSession session = request.getSession();
-                session.setAttribute("userId", rs.getId()); 
-                session.setAttribute("acc", rs);
-                response.sendRedirect("home.jsp");
-
-            }
-        }
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -66,8 +46,8 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
-
+            
+            
     }
 
     /**
@@ -81,7 +61,26 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        LibraryDAO i= new LibraryDAO();
+        HttpSession session = request.getSession();
+        String idGameStr = request.getParameter("idGame");
+        if (idGameStr!=null) {
+            int idGame = Integer.parseInt(idGameStr);
+        i.addGameToLibrary(request, idGame);
+       CartDAO cartDAO = new CartDAO();
+              List<Game> cartGames = cartDAO.getAllGamesForUser(request);
+              if (cartGames!=null) {
+             for (Game game : cartGames) {
+                  cartDAO.removeGameFromCart(request, game.getId());
+}             
+              response.sendRedirect("cart");
+        } else {
+              response.sendRedirect("cart");   
+        }
+        }
+        
+       response.sendRedirect("cart");
+             
     }
 
     /**

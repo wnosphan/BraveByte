@@ -9,15 +9,15 @@ import javax.servlet.http.HttpServletRequest;
 import model.Game;
 import service.DBContext;
 
-public class LibraryDAO extends DBContext {
+public class CartDAO extends DBContext {
     public List<Game> getAllGamesForUser(HttpServletRequest request) {
         List<Game> games = new ArrayList<>();
         int userId = (int) request.getSession().getAttribute("userId"); // Lấy ID của người dùng từ session
 
         String sql = "SELECT g.ID, g.Title, g.Kind, g.Background, g.Price\n" +
-                 "FROM dbo.Game g\n" +
-                 "INNER JOIN dbo.Library l ON g.ID = l.GID\n" +
-                 "WHERE l.AccID = ?";
+                     "FROM dbo.Game g\n" +
+                     "INNER JOIN dbo.Cart c ON g.ID = c.GID\n" +
+                     "WHERE c.AccID = ?";
 
         try (
             PreparedStatement st = connection.prepareStatement(sql)
@@ -40,16 +40,15 @@ public class LibraryDAO extends DBContext {
         }
         return games;
     }
-        public void addGameToLibrary(HttpServletRequest request, int gameId) {
+    
+    public void removeGameFromCart(HttpServletRequest request, int idGame) {
+        String sql = "DELETE FROM dbo.Cart WHERE AccID = ? AND GID = ?";
         int userId = (int) request.getSession().getAttribute("userId");
-
-        String sql = "INSERT INTO dbo.Library (AccID, GID) VALUES (?, ?)";
-
         try (
             PreparedStatement st = connection.prepareStatement(sql)
         ) {
             st.setInt(1, userId);
-            st.setInt(2, gameId);
+            st.setInt(2, idGame);
 
             st.executeUpdate();
         } catch (SQLException e) {
@@ -57,5 +56,21 @@ public class LibraryDAO extends DBContext {
             // Handle the exception appropriately
         }
     }
-   
+    public void addGameToCart(HttpServletRequest request, int idGame) {
+        int userId = (int) request.getSession().getAttribute("userId");
+
+        String sql = "INSERT INTO dbo.Cart (AccID, GID) VALUES (?, ?)";
+
+        try (
+            PreparedStatement st = connection.prepareStatement(sql)
+        ) {
+            st.setInt(1, userId);
+            st.setInt(2, idGame);
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately
+        }
+    }
 }

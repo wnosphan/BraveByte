@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Library</title>
     <link rel="stylesheet" href="Style/LibraryStyle.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,6 +18,7 @@
     <%@include file="header.jsp" %>
         <div class="body-page">
             <h1 > LIBRARY </h1>
+            <h2 class="number-games">Total :<%= request.getAttribute("count")%> Game</h2>
             <div class="cart-field">
                 <div class="titles">
                     <div class="section blank"></div>

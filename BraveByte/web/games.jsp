@@ -113,7 +113,9 @@
                             </div>
                             <div class="game-button">
                                 <button class="game-info"> <ion-icon name="alert-outline"></ion-icon> </button>
-                                <button class="add-to-cart"> <ion-icon name="cart-outline"></ion-icon></button>
+                                <form method="post" action="addgametocart">
+                                 <input type="hidden" name="idGame" value="<%= game.getId()%>" />
+                                <button class="add-to-cart"> <ion-icon name="cart-outline"></ion-icon></button></form>
                             </div>
 
                         </div>
