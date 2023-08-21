@@ -59,38 +59,32 @@ public class AddGametoLibrary extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        LibraryDAO i= new LibraryDAO();
-        HttpSession session = request.getSession();
-        String idGameStr = request.getParameter("idGame");
-        if (idGameStr!=null) {
-            int idGame = Integer.parseInt(idGameStr);
-        i.addGameToLibrary(request, idGame);
-       CartDAO cartDAO = new CartDAO();
-              List<Game> cartGames = cartDAO.getAllGamesForUser(request);
-              if (cartGames!=null) {
-             for (Game game : cartGames) {
-                  cartDAO.removeAllGamesFromCartForUser(request);
-}             
-               request.getRequestDispatcher("cart").forward(request, response);
-        } else {
-             request.getRequestDispatcher("cart").forward(request, response);  
-        }
-        }
+ 
+protected void doPost(HttpServletRequest request, HttpServletResponse response)
+        throws ServletException, IOException {
+    LibraryDAO libraryDAO = new LibraryDAO();
+    CartDAO cartDAO = new CartDAO();
+    HttpSession session = request.getSession();
+
+    String idGameStr = request.getParameter("idGame");
+    
+    if (idGameStr != null) {
+        int idGame = Integer.parseInt(idGameStr);
+        libraryDAO.addGameToLibrary(request, idGame);
         
-       request.getRequestDispatcher("cart").forward(request, response);
-             
+        List<Game> cartGames = cartDAO.getAllGamesForUser(request);
+        if (cartGames != null) {
+            for (Game game : cartGames) {
+                cartDAO.removeGameFromCart(request, game.getId());
+            }
+        }
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
+    response.sendRedirect("home.jsp");
 }
+}
+
+   
+   
+
+
