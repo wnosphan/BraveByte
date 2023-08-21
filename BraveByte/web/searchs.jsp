@@ -46,7 +46,6 @@
             int numberPage = (int) Math.ceil((count * 1.0) / pagging.getPerPage());
             int currentPage = 1;
             ArrayList<Game> list = pagging.getItems();
-            System.out.println(request.getAttribute("pagging"));
             if (request.getAttribute("pagging") != null) {
                 pagging = (Pagging) request.getAttribute("pagging");
                 list = pagging.getItems();
@@ -124,8 +123,9 @@
                             </div>
                             <div class="game-button">
                                 <button class="game-info"> <ion-icon name="alert-outline"></ion-icon> </button>
-                                <button class="add-to-cart"> <ion-icon name="cart-outline"></ion-icon></button>
-                            </div>
+                                <form method="post" action="addgametocart">
+                                 <input type="hidden" name="idGame" value="<%= game.getId()%>" />
+                                <button class="add-to-cart"> <ion-icon name="cart-outline"></ion-icon></button></form>                            </div>
 
                         </div>
                         <%
