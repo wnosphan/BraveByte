@@ -14,6 +14,7 @@
 </head>
 
 <body>
+
     <div class="page">                  
 
         <div class="body-page">
@@ -34,12 +35,10 @@
                     <div class="section category"><p>${x.kind}</p> </div>
                     <div class="section price">${x.price}</div>
                     <div class="section buttons"> <button class="more-info"> <ion-icon name="alert-circle-outline"></ion-icon> </button>
-                        <form method="post" action="deletefromcart">
-                      
+                        <form method="post" action="deletefromcart">                     
                          <input type="hidden" name="idGame" value="${x.id}" />
                         <button class = delete > <ion-icon name="close-circle-outline"></ion-icon> </button></form> </div>
                 </div>
-
                     </c:forEach>
  
 
@@ -48,6 +47,7 @@
                 <div class="total-amount">
                     <h3> Total Amount</h3>
                     <p><%= request.getAttribute("count")%></p>
+                     
                 </div>              
                 <div class="payment">
                     <h3>Payment</h3>
@@ -71,6 +71,7 @@
                   <c:forEach items="${cart}" var="x">
                    <input type="hidden" name="idGame" value="${x.id}" />
                   </c:forEach>
+                   <input type="hidden" name="total" value="<%= request.getAttribute("totalPrice")%>" />
                 <button class="purchase"> <ion-icon name="download-outline"></ion-icon> </button></form>
 
             </div>

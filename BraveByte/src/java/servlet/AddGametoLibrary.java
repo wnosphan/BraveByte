@@ -64,22 +64,24 @@ public class AddGametoLibrary extends HttpServlet {
         LibraryDAO i= new LibraryDAO();
         HttpSession session = request.getSession();
         String idGameStr = request.getParameter("idGame");
+  
         if (idGameStr!=null) {
             int idGame = Integer.parseInt(idGameStr);
-        i.addGameToLibrary(request, idGame);
+             i.addGameToLibrary(request, idGame);
        CartDAO cartDAO = new CartDAO();
               List<Game> cartGames = cartDAO.getAllGamesForUser(request);
+              session.setAttribute("games",cartGames);
+
               if (cartGames!=null) {
              for (Game game : cartGames) {
                   cartDAO.removeAllGamesFromCartForUser(request);
-}             
-               request.getRequestDispatcher("cart").forward(request, response);
+              }                 
+               request.getRequestDispatcher("createbill").forward(request, response);
         } else {
-             request.getRequestDispatcher("cart").forward(request, response);  
+             request.getRequestDispatcher("home,jsp").forward(request, response);  
         }
         }
         
-       request.getRequestDispatcher("cart").forward(request, response);
              
     }
 

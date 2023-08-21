@@ -31,33 +31,34 @@
             margin: 20px;
         }
     </style>
-        <title>Voucher</title>
+        <title>Bill</title>
     </head>
     <body>
+           <%@include file="header.jsp" %>
             <div class="page">
 
             <table>
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Tiêu đề</th>
-                        <th>Nội dung</th>
-                        <th>Tác giả</th>
-                        <th>Lượt xem</th>
-                        <th>Ngày tạo</th>
-                        <th>Xem chi tiết</th>
+                        <th>IdUser</th>
+                        <th>FullName</th>
+                        <th>Date</th>
+                        <th>Total</th>
+                     
+              
                     </tr>
                 </thead>
                 <tbody>
-                    <c:forEach items="${listNews}" var="x">
+                    <c:forEach items="${bill}" var="x">
                         <tr>
-                            <td>${x.ID}</td>
-                            <td>${x.title}</td>
-                            <td>${x.content.substring(0, 50)}...</td> 
-                            <td>${x.author}</td>
-                            <td>${x.views}</td>
-                            <td>${x.createdDate}</td>
-                            <td><a href="show?id=${x.ID}">Xem chi tiết</a></td>
+                            <td><a href="showbill?billID=${x.billID}">${x.billID}</a></td>
+                            <td>${x.accID}</td>
+                            <td>${x.fullName}</td> 
+                            <td>${x.billDate}</td>
+                            <td>${x.total}</td>
+                            
+                          
                         </tr>
                     </c:forEach>
                 </tbody>
